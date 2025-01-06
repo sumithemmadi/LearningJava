@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+mvn clean install > /dev/null 2>&1
+
+# shellcheck disable=SC2181
+if [ $? -eq 0 ]; then
+#  echo "Maven build successful."
+  if [ "$1" == "create" ]; then
+      java -classpath ./target/classes io.sumith.helper.CreateClassTemplate "$2"
+  else
+      java -classpath ./target/classes "$@"
+  fi
+else
+  echo "Maven build failed."
+  exit 1
+fi
