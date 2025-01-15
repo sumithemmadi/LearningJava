@@ -1,17 +1,11 @@
-# LearningJava
+package io.sumith.practice.chapter3;
 
-## Chapter 1
+import java.util.Arrays;
 
-- Nothing important
+/*
+# Java Modifiers
 
-## Chapter 2 
-
-- Getting to Know 
-- Classes And Objects
-
-## Java Modifiers
-
-### Access Modifiers
+## Access Modifiers
 
 | Modifier      | Class | Package | Subclass | World |
 |---------------|-------|---------|----------|-------|
@@ -45,8 +39,49 @@
 | **static**     | Associates the variable with the class rather than an instance. |
 | **volatile**   | Ensures visibility of variable changes across threads.    |
 | **transient**  | Excludes the variable from serialization.                 |
+*/
+class SimpleClass extends Bicycle implements BicycleImpl {
 
+    private String someVariable;
+    private String whyCalling;
 
-- **Note** : Have a look at anonymous classes and records.
+    public SimpleClass(String something) {
+        whyCalling = something;
+    }
 
+    public SimpleClass(int initialSpeed, int initialGear) {
+        super.speedUp(initialSpeed);
+        super.changeGear(initialGear);
+        someVariable = "Is working!";
+    }
 
+    public double calculateAverage(int... numbers) {
+        return Arrays.stream(numbers).average().orElse(0.0);
+    }
+
+    public String getWhyCalling() {
+        return whyCalling;
+    }
+
+    public void setWhyCalling(String whyCalling) {
+        this.whyCalling = whyCalling;
+    }
+
+    @Override
+    public void printStates() {
+        super.printStates();
+        System.out.println(someVariable);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println(whyCalling + " is being garbage collected");
+        super.finalize();
+    }
+
+    class InnerSimpleClass {
+        void sayImInnerClass() {
+            System.out.println("I'm inner class");
+        }
+    }
+}
